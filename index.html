@@ -1,86 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fund Split Calculator</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gradient-to-br from-blue-50 to-purple-100 min-h-screen flex items-center justify-center p-4">
-  <div class="bg-white shadow-2xl rounded-2xl p-8 max-w-xl w-full space-y-6">
-    <h1 class="text-2xl font-bold text-center text-gray-800">💰 Fund Split Calculator</h1>
 
-    <div class="space-y-4">
-      <div>
-        <label class="block font-medium text-gray-700">Fund 1 (₹)</label>
-        <input type="number" id="fund1" placeholder="Enter amount" value="8000000" class="w-full mt-1 p-2 border border-gray-300 rounded-lg" />
       </div>
 
-      <div>
-        <label class="block font-medium text-gray-700">Fund 2 (₹)</label>
-        <input type="number" id="fund2" placeholder="Enter amount" value="2900000" class="w-full mt-1 p-2 border border-gray-300 rounded-lg" />
-      </div>
-
-      <div>
-        <label class="block font-medium text-gray-700">Divisor (default ₹200000)</label>
-        <input type="number" id="divisor" placeholder="Default is ₹200000" value="200000" class="w-full mt-1 p-2 border border-gray-300 rounded-lg" />
-      </div>
-
-      <button onclick="calculate()" class="w-full bg-blue-600 text-white font-bold py-2 rounded-lg hover:bg-blue-700 transition">
-        🔍 Calculate
-      </button>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6">
-      <div class="bg-green-100 p-4 rounded-lg text-center shadow">
-        <h2 class="font-bold text-gray-700">Fund 1 Result</h2>
-        <p id="result1" class="text-xl text-green-800 mt-2">--</p>
-        <p id="extra1" class="text-sm text-gray-600 mt-1"></p>
-      </div>
-      <div class="bg-yellow-100 p-4 rounded-lg text-center shadow">
-        <h2 class="font-bold text-gray-700">Fund 2 Result</h2>
-        <p id="result2" class="text-xl text-yellow-800 mt-2">--</p>
-        <p id="extra2" class="text-sm text-gray-600 mt-1"></p>
-      </div>
-    </div>
   </div>
 
   <script>
-    function animateCount(id, endValue, extraId) {
+
+    function updateClock() {
+
+      const now = new Date();
+
+      now.setSeconds(now.getSeconds() + (330 * 60)); // IST offset
+
+      const time = now.toISOString().substr(11, 8); // "HH:MM:SS"
+
+      document.getElementById("clock").textContent = ` ${time}`;
+
+    }
+
+    setInterval(updateClock, 1000);
+
+    updateClock();
+
+    function animateCount(id, endValue, extraId, originalFund, divisor) {
+
       let current = 0;
+
       const duration = 1000;
+
       const frameRate = 30;
+
       const totalFrames = duration / (1000 / frameRate);
+
       const increment = endValue / totalFrames;
 
       const element = document.getElementById(id);
-      const extraElement = document.getElementById(extraId);
-      extraElement.innerHTML = ""; // Reset extra text initially
-
-      const counter = setInterval(() => {
-        current += increment;
-        if (current >= endValue) {
-          current = Math.floor(endValue);
-          clearInterval(counter);
-          if (current > 24) {
-            extraElement.innerHTML = `${current} - 24 = <strong>${current - 24}</strong>`;
-          }
-        }
-        element.innerText = Math.floor(current);
-      }, 1000 / frameRate);
-    }
-
-    function calculate() {
-      const fund1 = parseFloat(document.getElementById('fund1').value) || 0;
-      const fund2 = parseFloat(document.getElementById('fund2').value) || 0;
-      const divisor = parseFloat(document.getElementById('divisor').value) || 200000;
-
-      const result1 = fund1 / divisor;
-      const result2 = fund2 / divisor;
-
-      animateCount('result1', result1, 'extra1');
-      animateCount('result2', result2, 'extra2');
-    }
-  </script>
-</body>
-</html>
