@@ -48,7 +48,7 @@
     <!-- Clock below results (no blinking now) -->
     <div class="w-full text-center mt-6">
       <div id="clock" class="text-2xl font-mono text-gray-800 font-bold tracking-wide">
-        ⏰ 00:00:00
+         00:00:00
       </div>
     </div>
   </div>
@@ -58,7 +58,7 @@
       const now = new Date();
       now.setSeconds(now.getSeconds() + (330 * 60)); // IST offset
       const time = now.toISOString().substr(11, 8); // "HH:MM:SS"
-      document.getElementById("clock").textContent = `⏰ ${time}`;
+      document.getElementById("clock").textContent = ` ${time}`;
     }
     setInterval(updateClock, 1000);
     updateClock();
