@@ -80,13 +80,15 @@
           current = Math.floor(endValue);
           clearInterval(counter);
 
-          let extraText = "";
           const totalValue = divisor * current;
+          const remaining = originalFund - totalValue;
+          let extraText = "";
+
           if (current > 24) {
             const diff = current - 24;
-            extraText = `${current} - 24 = <strong>${diff}</strong> (₹${totalValue.toLocaleString()})`;
+            extraText = `${current} - 24 = <strong>${diff}</strong> (₹${totalValue.toLocaleString()}) (₹${remaining.toLocaleString()} left)`;
           } else {
-            extraText = `Total = ${current} (₹${totalValue.toLocaleString()})`;
+            extraText = `Total = ${current} (₹${totalValue.toLocaleString()}) (₹${remaining.toLocaleString()} left)`;
           }
 
           extraElement.innerHTML = extraText;
